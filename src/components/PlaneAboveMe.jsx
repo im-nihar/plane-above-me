@@ -14,7 +14,7 @@ const PlaneAboveMe = () => {
     fetchPlanes();
 
     // Set up an interval to fetch planes every minute (60000 ms)
-    const intervalId = setInterval(fetchPlanes, 60000);
+    const intervalId = setInterval(fetchPlanes, 120000);
 
     // Clean up the interval on component unmount
     return () => clearInterval(intervalId);
