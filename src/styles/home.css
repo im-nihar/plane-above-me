@@ -19,10 +19,11 @@
   /* gap: "8px"; */
 }
 
-.main-container {
+/* Added in App.css */
+/* .main-container {
   display: flex;
   flex-wrap: wrap;
-}
+} */
 
 .plane-container {
   border: 1px solid black;
