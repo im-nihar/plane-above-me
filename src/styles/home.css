@@ -1,0 +1,32 @@
+.header-container {
+  /* display: flex;
+    justify-content: space-between */
+  margin: 0 0 20px 0;
+}
+
+.reload-btn {
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+  border: "1px solid #ccc";
+  background-color: #f0f0f0;
+  height: 50px;
+  display: flex;
+  /* color: #333; */
+  /* display: "inline-flex"; */
+  /* align-items: "center"; */
+  /* gap: "8px"; */
+}
+
+.main-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.plane-container {
+  border: 1px solid black;
+  padding: 5px;
+  margin: 5px;
+  min-width: 230px;
+}
