@@ -8,6 +8,7 @@ const PlaneInfo = (props) => {
   return (
     <div className="plane-container">
       <h3>&#9992; Plane Information: {index + 1}</h3>
+      <p>Flight no: {planeDetails.flight}</p>
       <p>Type: {planeDetails.t}</p>
       <p>Description: {planeDetails.desc}</p>
       <p>Altitude: {planeDetails.alt_baro} ft</p>
