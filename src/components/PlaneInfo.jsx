@@ -1,9 +1,8 @@
 import React from "react";
-
+import { convertSpeedToKmph } from "../utils/utils";
 // PlaneInfo component to display individual plane's information
 const PlaneInfo = (props) => {
   const { planeDetails, index } = props;
-  const convertSpeedToKmph = (knots) => (knots * 1.852).toFixed(2);
 
   return (
     <div className="plane-container">
