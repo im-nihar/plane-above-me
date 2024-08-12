@@ -62,9 +62,14 @@ const getFormattedDateTime = () => {
 // Function to handle sending email notifications
 const handleEmail = (planeData) => {
   // const transporter = nodemailer.createTransport(EMAIL_CONFIG);
-  const timeStamp = moment().utc(1000*60*60*1).format('D-MM-YYYY, h:mm:ss a'); //getFormattedDateTime();
+  const timeStamp = moment()
+    .utc(1000 * 60 * 60 * 1)
+    .format("D-MM-YYYY, h:mm:ss a"); //getFormattedDateTime();
   const planeWord = planeData.length === 1 ? "Plane" : "Planes";
-  const subject = `[${timeStamp}] New ${planeWord} above you: ${planeData.length}!`;
+  const planeCount =
+    uniquePlanesCount == 0 ? "" : `${uniquePlanesCount} of the day!`;
+  // const subject = `[${timeStamp}] New ${planeWord} above you: ${planeData.length}!`;
+  const subject = `New ${planeWord} above you: ${planeData.length}! ${planeCount}`;
   const body = planeData
     .map(
       (plane, index) =>
@@ -77,6 +82,7 @@ const handleEmail = (planeData) => {
   const NewBody = `
   <p>Hi,</p>
   <p>Here are the planes above you are: </p>
+  <p>Radius: ${RADIUS} </p>
   <ul>
     ${planeData
       .map(
@@ -87,10 +93,12 @@ const handleEmail = (planeData) => {
       )
       .join("")}
   </ul>
-  <p>Time: ${timeStamp}</p>
   <br>
   <p>Total unique planes counted today: ${uniquePlanesCount}</p>
 `;
+  {
+    /* <p>Time: ${timeStamp}</p> */
+  }
 
   emailHandler(NewBody, subject);
 };
