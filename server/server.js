@@ -119,17 +119,13 @@ const detectNewEntries = (planeData) => {
     // console.log("New planes detected:", newPlanes);
     handleEmail(newPlanes);
     previousPlanes = [...previousPlanes, ...newPlanes];
-
-    console.log("new planes here");
   }
 };
 
 const emailHandler = async (emailBody, subject) => {
-  console.log("emailBody", emailBody);
-
   // send mail with defined transport object
   const info = await transporter2.sendMail({
-    from: `"TEST EMAIL:" <${EMAIL}>`, // sender address
+    from: `"ME:" <${EMAIL}>`, // sender address
     to: EMAIL, // list of receivers
     subject: subject, // Subject line
     // text: "Hello world!", // plain text body
@@ -152,12 +148,6 @@ app.get("/", (req, res) => {
   res.send("Planes data server is running!");
 });
 
-// app.get("/", (req, res) => res.send("Express on Vercel"));
-
-// A simple route to check if the server is running
-app.get("/", (req, res) => {
-  res.send("Planes data server is running!");
-});
 
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
