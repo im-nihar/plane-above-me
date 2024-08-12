@@ -2,6 +2,7 @@ const express = require("express");
 const cors = require("cors");
 const axios = require("axios");
 const nodemailer = require("nodemailer");
+const moment = require("moment");
 
 require("dotenv").config();
 
@@ -26,6 +27,8 @@ const LONGITUDE = -9.04804;
 const RADIUS = 45;
 
 let previousPlanes = [];
+let uniquePlanesCount = 0; // Counter for unique planes
+let uniquePlanesSet = new Set(); // Set to track unique plane hex codes
 
 const transporter = nodemailer.createTransport({
   host: SMTP_HOST,
@@ -71,7 +74,6 @@ const handleEmail = (planeData) => {
     )
     .join("");
 
-
   const NewBody = `
   <p>Hi,</p>
   <p>Here are the planes above you are: </p>
@@ -86,6 +88,8 @@ const handleEmail = (planeData) => {
       .join("")}
   </ul>
   <p>Time: ${timeStamp}</p>
+  <br>
+  <p>Total unique planes counted today: ${uniquePlanesCount}</p>
 `;
 
   emailHandler(NewBody, subject);
@@ -118,6 +122,12 @@ const detectNewEntries = (planeData) => {
   if (newPlanes.length > 0) {
     // console.log("New planes detected:", newPlanes);
     handleEmail(newPlanes);
+    newPlanes.forEach((plane) => {
+      if (!uniquePlanesSet.has(plane.hex)) {
+        uniquePlanesSet.add(plane.hex);
+        uniquePlanesCount++;
+      }
+    });
     previousPlanes = [...previousPlanes, ...newPlanes];
   }
 };
@@ -137,6 +147,23 @@ const emailHandler = async (emailBody, subject) => {
 };
 
 // main().catch(console.error);
+// Function to reset the counter at midnight
+const resetCounterAtMidnight = () => {
+  const now = moment();
+  const midnight = moment().endOf("day");
+  const duration = midnight.diff(now);
+
+  setTimeout(() => {
+    uniquePlanesCount = 0;
+    uniquePlanesSet.clear();
+    // console.log("Counter reset at midnight");
+    // Schedule the next reset for the following day
+    resetCounterAtMidnight();
+  }, duration);
+};
+
+// Start the reset schedule immediately
+resetCounterAtMidnight();
 
 setInterval(fetchPlanesData, 3000);
 
@@ -147,7 +174,6 @@ fetchPlanesData();
 app.get("/", (req, res) => {
   res.send("Planes data server is running!");
 });
-
 
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
