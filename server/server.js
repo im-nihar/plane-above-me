@@ -62,7 +62,7 @@ const getFormattedDateTime = () => {
 // Function to handle sending email notifications
 const handleEmail = (planeData) => {
   // const transporter = nodemailer.createTransport(EMAIL_CONFIG);
-  const timeStamp = getFormattedDateTime();
+  const timeStamp = moment().format('D-MM-YYYY, h:mm:ss a'); //getFormattedDateTime();
   const planeWord = planeData.length === 1 ? "Plane" : "Planes";
   const subject = `[${timeStamp}] New ${planeWord} above you: ${planeData.length}!`;
   const body = planeData
