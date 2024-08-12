@@ -71,7 +71,7 @@ const handleEmail = (planeData) => {
     )
     .join("");
 
-  console.log("In handle email-->>>", body);
+
   const NewBody = `
   <p>Hi,</p>
   <p>Here are the planes above you are: </p>
@@ -93,13 +93,13 @@ const handleEmail = (planeData) => {
 
 // Function to fetch planes data
 const fetchPlanesData = () => {
-  console.log("Fetching planes data...");
+  // console.log("Fetching planes data...");
 
   axios
     .get(`${API_URL}/point/${LATITUDE}/${LONGITUDE}/${RADIUS}`)
     .then((response) => {
       const planeData = response.data.ac || [];
-      console.log(`Fetched ${planeData.length} planes`);
+      // console.log(`Fetched ${planeData.length} planes`);
       detectNewEntries(planeData);
       // You can do something with the data here, like save it to a database
     })
