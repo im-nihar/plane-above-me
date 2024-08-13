@@ -81,7 +81,7 @@ const handleEmail = (planeData) => {
 
   const NewBody = `
   <p>Hi,</p>
-  <p>Here are the planes above you are: </p>
+  <p>The planes above you are: </p>
   <p>Radius: ${RADIUS} </p>
   <ul>
     ${planeData
